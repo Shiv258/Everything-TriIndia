@@ -27,3 +27,4 @@ pnpm-debug.log*
 !public/**/*.jpeg
 !public/**/*.webp
 !public/**/*.svg
+!public/**/*.mp4
