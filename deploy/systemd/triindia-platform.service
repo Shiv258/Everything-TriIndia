@@ -1,0 +1,19 @@
+[Unit]
+Description=TRIINDIA Hospitality Next.js Platform
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/triindia/app
+Environment=NODE_ENV=production
+Environment=HOSTNAME=127.0.0.1
+Environment=PORT=3000
+EnvironmentFile=/opt/triindia/app/.env
+ExecStart=/usr/bin/npm run start -- --hostname 127.0.0.1 --port 3000
+Restart=always
+RestartSec=10
+User=triindia
+Group=triindia
+
+[Install]
+WantedBy=multi-user.target

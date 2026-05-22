@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: triindia-platform-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-triindia_hospitality}
+      POSTGRES_USER: ${POSTGRES_USER:-triindia}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - triindia-platform-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  triindia-platform-postgres-data:

@@ -1,0 +1,61 @@
+# Production setup:
+# 1. Copy deploy/env/odoo.env.example to /opt/triindia/odoo/.env on the VPS.
+# 2. Run docker compose from /opt/triindia/odoo so env_file: .env resolves correctly.
+
+services:
+  odoo-db:
+    image: postgres:15-alpine
+    container_name: odoo-db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-odoo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - odoo-network
+
+  odoo-web:
+    image: odoo:17.0
+    container_name: odoo-web
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      odoo-db:
+        condition: service_healthy
+    command:
+      - odoo
+      - --admin-passwd=${ODOO_MASTER_PASSWORD:?Set ODOO_MASTER_PASSWORD in .env}
+      - --proxy-mode
+      - --gevent-port=8072
+    ports:
+      - "127.0.0.1:8069:8069"
+      - "127.0.0.1:8072:8072"
+    environment:
+      HOST: odoo-db
+      USER: ${POSTGRES_USER:-odoo}
+      PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+    networks:
+      - odoo-network
+
+volumes:
+  odoo-db-data:
+  odoo-web-data:
+
+networks:
+  odoo-network:
+    driver: bridge
