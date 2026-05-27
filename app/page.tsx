@@ -1,8 +1,10 @@
 import Header from "@/components/home/Header";
 import Hero from "@/components/home/Hero";
-import TrustSection from "@/components/home/TrustSection";
-import ImageAutoSlider from "@/components/home/ImageAutoSlider";
-import RoomsSection from "@/components/home/RoomsSection";
+import AboutTriIndia from "@/components/home/AboutTriIndia";
+import FeaturedStays from "@/components/home/FeaturedStays";
+import DelhiMap from "@/components/home/DelhiMap";
+import WhyTriIndia from "@/components/home/WhyTriIndia";
+import PortfolioMarquee from "@/components/home/PortfolioMarquee";
 import Footer from "@/components/home/Footer";
 
 export default function Home() {
@@ -11,9 +13,11 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <TrustSection />
-        <ImageAutoSlider />
-        <RoomsSection />
+        <AboutTriIndia />
+        <FeaturedStays />
+        <DelhiMap />
+        <WhyTriIndia />
+        <PortfolioMarquee />
       </main>
       <Footer />
     </div>

@@ -8,10 +8,37 @@ import Image from "next/image";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "#about" },
-  { label: "Hotels", href: "#rooms" },
-  { label: "Contact Us", href: "#contact" },
+  { label: "About", href: "/#about" },
+  { label: "Hotels", href: "/hotels" },
+  { label: "Contact", href: "/#contact" },
 ];
+
+function Wordmark({ size = "md" }: { size?: "sm" | "md" }) {
+  const logoSize = size === "sm" ? 36 : 40;
+  return (
+    <div className="flex items-center gap-3">
+      <div className="overflow-hidden rounded-lg ring-1 ring-neutral-200/60">
+        <Image
+          src="/triindia-logo.jpeg"
+          alt="TriIndia Hospitality"
+          width={logoSize}
+          height={logoSize}
+          className="block transition-transform duration-[600ms] ease-out hover:scale-105"
+          priority
+          style={{ width: logoSize, height: logoSize }}
+        />
+      </div>
+      <div className="leading-tight">
+        <div className="font-display text-[15px] tracking-tight text-neutral-950">
+          TriIndia
+        </div>
+        <div className="text-[9px] uppercase tracking-[0.22em] text-neutral-500">
+          Hospitality
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,56 +56,46 @@ export default function Header() {
       initial={{ y: -80 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed left-0 top-0 z-50 w-full transition-all duration-500 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-xl shadow-sm border-b border-gray-100"
+          ? "border-b border-neutral-100 bg-white/95 shadow-sm backdrop-blur-xl"
           : "bg-white/80 backdrop-blur-md"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="overflow-hidden rounded-md">
-            <Image
-              src="/triindia-logo.jpeg"
-              alt="TRIINDIA"
-              width={144}
-              height={36}
-              className="h-9 w-auto object-contain transition-transform duration-[600ms] ease-out hover:scale-105"
-              priority
-            />
-          </div>
+      <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-6">
+        <Link href="/" aria-label="TriIndia Hospitality — Home">
+          <Wordmark />
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden items-center gap-1 md:flex">
           {navLinks.map((link, i) => (
-            <motion.a
+            <motion.div
               key={link.label}
-              href={link.href}
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * i, duration: 0.4 }}
-              className="relative px-4 py-2 text-[11px] font-medium uppercase tracking-[3px] text-gray-600 hover:text-gray-900 transition-colors group"
+              transition={{ delay: 0.08 * i, duration: 0.4 }}
             >
-              {link.label}
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-black rounded-full group-hover:w-3/4 transition-all duration-300" />
-            </motion.a>
+              <Link
+                href={link.href}
+                className="group relative px-4 py-2 text-[11px] font-medium uppercase tracking-[0.28em] text-neutral-600 transition-colors hover:text-neutral-950"
+              >
+                {link.label}
+                <span className="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 rounded-full bg-neutral-950 transition-all duration-300 group-hover:w-3/4" />
+              </Link>
+            </motion.div>
           ))}
         </nav>
 
-        {/* Mobile Menu Button */}
         <button
           type="button"
           onClick={() => setMobileOpen(true)}
-          className="md:hidden p-2 text-gray-700"
+          className="p-2 text-neutral-700 md:hidden"
           aria-label="Open menu"
         >
-          <Menu className="w-5 h-5" />
+          <Menu className="h-5 w-5" />
         </button>
       </div>
 
-      {/* Mobile Sheet */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -86,51 +103,42 @@ export default function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/10 backdrop-blur-xs z-50"
+              className="fixed inset-0 z-50 bg-black/15 backdrop-blur-sm"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-50 w-[300px] sm:w-[400px] bg-white shadow-xl border-l border-gray-100 flex flex-col"
+              transition={{ type: "spring", damping: 26, stiffness: 210 }}
+              className="fixed inset-y-0 right-0 z-50 flex w-[300px] flex-col border-l border-neutral-100 bg-white shadow-xl sm:w-[380px]"
             >
-              <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                <div className="overflow-hidden rounded-md">
-                  <Image
-                    src="/triindia-logo.jpeg"
-                    alt="TRIINDIA"
-                    width={128}
-                    height={32}
-                    className="h-8 w-auto object-contain"
-                    priority
-                  />
-                </div>
+              <div className="flex items-center justify-between border-b border-neutral-100 p-6">
+                <Wordmark size="sm" />
                 <button
                   type="button"
                   onClick={() => setMobileOpen(false)}
-                  className="p-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100"
                   aria-label="Close menu"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
-              <nav className="flex flex-col gap-2 p-6">
+              <nav className="flex flex-col gap-1 p-6">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.label}
-                    initial={{ x: 50, opacity: 0 }}
+                    initial={{ x: 30, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.05 * i }}
                   >
-                    <a
+                    <Link
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className="block px-4 py-3 text-[11px] font-medium uppercase tracking-[3px] text-gray-700 hover:text-black hover:bg-gray-50 rounded-xl transition-all"
+                      className="block rounded-xl px-4 py-3 text-[11px] font-medium uppercase tracking-[0.28em] text-neutral-700 transition-all hover:bg-neutral-50 hover:text-neutral-950"
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </motion.div>
                 ))}
               </nav>

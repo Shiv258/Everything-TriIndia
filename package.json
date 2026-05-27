@@ -21,13 +21,16 @@
     "clsx": "^2.1.1",
     "framer-motion": "latest",
     "lucide-react": "^1.16.0",
+    "mapbox-gl": "^3.24.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-map-gl": "^8.1.1",
     "tailwind-merge": "^3.6.0",
     "zod": "latest"
   },
   "devDependencies": {
+    "@types/mapbox-gl": "^3.4.1",
     "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",

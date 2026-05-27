@@ -5,8 +5,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["DM Sans", "Trebuchet MS", "sans-serif"],
-        heading: ["Playfair Display", "Georgia", "serif"],
+        sans: ["var(--font-geist)", "system-ui", "-apple-system", "sans-serif"],
+        display: ["var(--font-fraunces)", "Georgia", "serif"],
+        heading: ["var(--font-fraunces)", "Georgia", "serif"],
       },
     },
   },
