@@ -1,0 +1,11 @@
+- [User: Shiv Arora](user_shiv.md) — solo dev, Shiv Automates, Delhi; building TriIndia platform with Claude Code
+- [Project: TriIndia platform overview](project_triindia_overview.md) — 5-hotel chain digitization, J Residency pilot, 50-day Phase 1
+- [Project: current build status (2026-05-23)](project_status_2026-05-23.md) — website live, Odoo verified, OCR→Odoo sync done; Vercel env still pending
+- [Feedback: tech stack is locked — no n8n](feedback_no_n8n.md) — Node/TS glue service replaces n8n entirely; QloApps=PMS, Odoo=CRM only
+- [Feedback: partners are non-technical — no jargon](feedback_non_technical_partners.md) — explain in plain language to Hansraj/Habib/Aftab; no API/webhook/cron talk
+- [Feedback: do not deploy until explicitly asked](feedback_no_deploy_without_ask.md) — outer AGENTS.md rule for the website work
+- [Feedback: stay inside current phase](feedback_phase_discipline.md) — don't build Phase 2/3 features during Phase 1
+- [Reference: Contabo production server](reference_server_contabo.md) — 94.136.185.217, Ubuntu 24.04, systemd service for Next.js
+- [Reference: Odoo CRM connection](reference_odoo_creds.md) — crm.triindiahospitality.com, DB is `TriIndia_Hospitality` (not "triindia")
+- [Reference: OCR app repo + Vercel deploys](reference_ocr_app.md) — github.com/shiv-automates/ocr-app; mauve=new, sage=original
+- [Reference: project docs (AGENTS.md + KB)](reference_project_docs.md) — where the locked spec and 70-page KB live
